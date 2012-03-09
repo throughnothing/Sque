@@ -82,7 +82,7 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 SYNOPSIS
 
-First you create a Sesque instance where you configure the L<Stomp>
+First you create a Sque instance where you configure the L<Stomp>
 backend and then you can start sending jobs to be done by workers:
 
     use Sque;
