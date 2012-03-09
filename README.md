@@ -15,8 +15,8 @@ backend and then you can start sending jobs to be done by workers:
 
     my $s = Sque->new( stomp => '127.0.0.1:61613' );
 
-    $s->push( my_queue => { 
-        class => 'My::Task', 
+    $s->push( my_queue => {
+        class => 'My::Task',
         args => [ 'Hello world!' ]
     });
 
