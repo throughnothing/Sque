@@ -7,22 +7,12 @@ use Try::Tiny;
 
 # ABSTRACT: Does the hard work of babysitting Sque::Job's
 
-=attr sque
-
-The L<Sque> object running this worker.
-
-=cut
 has sque => (
     is => 'ro',
     required => 1,
     handles => [qw/ stomp key /]
 );
 
-=attr queues
-
-Queues this worker should fetch jobs from.
-
-=cut
 has queues => (
     is => 'rw',
     isa => 'HashRef',
@@ -30,22 +20,8 @@ has queues => (
     default => sub {{}}
 );
 
-=attr verbose
-
-Set to a true value to make this worker report what's doing while
-on work().
-
-=cut
 has verbose => ( is => 'rw', default => sub {0} );
 
-=method work
-
-Calling this method will make this worker to start pulling & running jobs
-from queues().
-
-This is the main wheel and will run while shutdown() is false.
-
-=cut
 sub work {
     my $self = shift;
     while( my $job = $self->sque->pop ) {
@@ -58,12 +34,6 @@ sub work {
     }
 }
 
-=method perform
-
-Call perform() on the given Sque::Job capturing and reporting
-any exception.
-
-=cut
 sub perform {
     my ( $self, $job ) = @_;
     my $ret;
@@ -77,11 +47,6 @@ sub perform {
     $ret;
 }
 
-=method add_queue
-
-Add a queue this worker should listen to.
-
-=cut
 sub add_queues {
     my $self = shift;
     return unless @_;
@@ -94,11 +59,6 @@ sub add_queues {
     }
 }
 
-=method log
-
-If verbose() is true, this will print to STDERR.
-
-=cut
 sub log {
     my $self = shift;
     return unless $self->verbose;
@@ -117,3 +77,37 @@ sub _subscribe_queue {
 __PACKAGE__->meta->make_immutable();
 
 1;
+
+=attr sque
+
+The L<Sque> object running this worker.
+
+=attr queues
+
+Queues this worker should fetch jobs from.
+
+=attr verbose
+
+Set to a true value to make this worker report what's doing while
+on work().
+
+=method work
+
+Calling this method will make this worker to start pulling & running jobs
+from queues().
+
+This is the main wheel and will run while shutdown() is false.
+
+=method perform
+
+Call perform() on the given Sque::Job capturing and reporting
+any exception.
+
+=method add_queue
+
+Add a queue this worker should listen to.
+
+=method log
+
+If verbose() is true, this will print to STDERR.
+

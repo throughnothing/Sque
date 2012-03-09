@@ -4,7 +4,50 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.001
+version 0.002
+
+# SYNOPSIS
+
+First you create a Sesque instance where you configure the [Stomp](http://search.cpan.org/perldoc?Stomp)
+backend and then you can start sending jobs to be done by workers:
+
+    use Sque;
+
+    my $s = Sque->new( stomp => '127.0.0.1:61613' );
+
+    $s->push( my_queue => { 
+        class => 'My::Task', 
+        args => [ 'Hello world!' ]
+    });
+
+Background jobs can be any perl module that implement a perform() function.
+The Sque::Job object is passed as the only argument to this function:
+
+    package My::Task;
+    use strict;
+    use 5.10.0;
+
+    sub perform {
+        my $job = shift;
+        say $job->args->[0];
+    }
+
+    1;
+
+Finally, you run your jobs by instancing a [Sque::Worker](http://search.cpan.org/perldoc?Sque::Worker) and telling it
+to listen to one or more queues:
+
+    use Sque;
+
+    my $w = Sque->new( stomp => '127.0.0.1:61613' )->worker;
+    $w->add_queue('my_queue');
+    $w->work;
+
+# DESCRIPTION
+
+This is a copy of [resque-perl](https://github.com/diegok/resque-perl)
+by [Diego Kuperman](https://github.com/diegok) simplified a little bit
+(for better or worse) and made to work with any stomp server rather than Redis.
 
 # ATTRIBUTES
 
@@ -25,27 +68,30 @@ A [Sque::Worker](http://search.cpan.org/perldoc?Sque::Worker) on this sque insta
 ## push
 
 Pushes a job onto a queue. Queue name should be a string and the
-item should be a Sque::Job object or a hashref containing:
+item should be a [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object or a hashref containing:
 class - The String name of the job class to run.
 args - Any arrayref of arguments to pass the job.
 
-Example
-$sque->push( archive => { class => 'Archive', args => [ 35, 'tar' ] } )
+Example:
+
+    $sque->push( archive => { class => 'Archive', args => [ 35, 'tar' ] } )
 
 ## pop
 
 Pops a job off a queue. Queue name should be a string.
-Returns a Sque::Job object.
-
-## new_job
-
-Build a Sque::Job object on this system for the given
-hashref(see Sque::Job) or string(payload for object).
+Returns a l<Sque::Job> object.
 
 ## key
 
-Concatenate $self->namespace with the received array of names
+Concatenate `$self-`namespace> with the received array of names
 to build a redis key name for this sque instance.
+
+## new_job
+
+Build a [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object on this system for the given
+hashref(see [Sque::Job](http://search.cpan.org/perldoc?Sque::Job)) or string(payload for object).
+
+# ATTRIBUTES
 
 # HELPER METHODS
 
