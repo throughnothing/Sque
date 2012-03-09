@@ -1,6 +1,6 @@
 # NAME
 
-Sque - STOMP-based library for creating background jobs, placing them
+Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 

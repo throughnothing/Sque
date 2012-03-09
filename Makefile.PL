@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "STOMP-based library for creating background jobs, placing them",
+  "ABSTRACT" => "Background job processing based on Resque, using Stomp",
   "AUTHOR" => "William Wolf <throughnothing\@gmail.com>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {

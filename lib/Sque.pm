@@ -5,8 +5,7 @@ use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
 use Net::STOMP::Client;
 
-# ABSTRACT: STOMP-based library for creating background jobs, placing them
-# on multiple queues, and processing them later. Based heavily off of Resque.
+# ABSTRACT: Background job processing based on Resque, using Stomp
 
 use Sque::Job;
 use Sque::Worker;
