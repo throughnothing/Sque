@@ -5,3 +5,8 @@ Makefile
 Makefile.old
 .build
 Sque-*
+
+MYMETA.json
+MYMETA.yml
+old.pl
+pm_to_blib
