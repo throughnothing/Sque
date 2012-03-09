@@ -1,7 +1,11 @@
 Changelog for Sque
 
-0.001 2012-03-09T10:34:27
+0.001 2012-03-09T10:37:12
  [William Wolf <throughnothing@gmail.com>]
+ - .gitignore updates
+
+ - add some basic tests
+
  - updates
 
  - Initial commit
