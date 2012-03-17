@@ -95,14 +95,34 @@ backend and then you can start sending jobs to be done by workers:
     });
 
 Background jobs can be any perl module that implement a perform() function.
-The Sque::Job object is passed as the only argument to this function:
+The L<Sque::Job> object is passed as the only argument to this function:
 
     package My::Task;
     use strict;
     use 5.10.0;
 
     sub perform {
-        my $job = shift;
+        my ( $job ) = @_;
+        say $job->args->[0];
+    }
+
+    1;
+
+Background jobs can also be OO.  The perform function will still be called
+with the L<Sque::Job> object as the only argument:
+
+    package My::Task;
+    use strict;
+    use 5.10.0;
+    use Moose;
+
+    with 'Role::Awesome';
+
+    has attr => ( is => 'ro', default => 'Where am I?' );
+
+    sub perform {
+        my ( $self, $job ) = shift;
+        say $self->attr;
         say $job->args->[0];
     }
 
@@ -114,7 +134,7 @@ to listen to one or more queues:
     use Sque;
 
     my $w = Sque->new( stomp => '127.0.0.1:61613' )->worker;
-    $w->add_queue('my_queue');
+    $w->add_queues('my_queue');
     $w->work;
 
 =head1 DESCRIPTION

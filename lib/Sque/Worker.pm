@@ -27,10 +27,10 @@ sub work {
     while( my $job = $self->sque->pop ) {
         $job->worker($self);
         my $reval = $self->perform($job);
-        $self->stomp->ack( frame => $job->frame );
         if(!$reval){
             #TODO: re-send messages to queue... ABORT messages?
         }
+        $self->stomp->ack( frame => $job->frame );
     }
 }
 
@@ -103,7 +103,7 @@ This is the main wheel and will run while shutdown() is false.
 Call perform() on the given Sque::Job capturing and reporting
 any exception.
 
-=method add_queue
+=method add_queues
 
 Add a queue this worker should listen to.
 
