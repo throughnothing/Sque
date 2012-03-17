@@ -3,12 +3,21 @@ Changes from 2011-03-18 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.003 at 2012-03-17 10:19:31 +0000
+version 0.003 at 2012-03-17 22:54:46 +0000
 ------------------------------------------
 
-  Change: 16ce3067f6050675dc3aa3f20c226779a1c3cd41
+  Change: c5e214fe08aad20a68839cdb1556287ebf79f6ec
   Author: William Wolf <throughnothing@gmail.com>
-  Date : 2012-03-17 02:34:19 +0000
+  Date : 2012-03-17 15:54:07 +0000
+
+    Allow pushing to default queue.
+
+    This allows you to not need to specify a queue on push and have it
+    default to the job Class name with :'s replaced by -'s. 
+
+  Change: 4a5bb312d8c23deace813030a41f709da7643866
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 04:33:04 +0000
 
     Allow OO jobs to be processed as well.
 

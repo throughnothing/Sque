@@ -20,6 +20,17 @@ backend and then you can start sending jobs to be done by workers:
         args => [ 'Hello world!' ]
     });
 
+You can also send by just using:
+
+    $s->push({
+        class => 'My::Task',
+        args => [ 'Hello world!' ]
+    });
+
+In this case, the queue will be set automatically automatically to the
+job class name with colons replaced with hyphens, which in this
+case would be 'My-Task'.
+
 Background jobs can be any perl module that implement a perform() function.
 The [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object is passed as the only argument to this function:
 

@@ -43,6 +43,7 @@ sub perform {
     }
     catch {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
+        # TODO send to failed queue ?
     };
     $ret;
 }

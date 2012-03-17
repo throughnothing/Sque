@@ -39,8 +39,14 @@ has worker => (
 
 sub push {
     my ( $self, $queue, $job ) = @_;
-    confess "Can't push an empty job." unless $job;
-    $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
+    confess "Can't push an empty job." unless ( $job || ref $queue );
+    if( ref $queue ){
+        $job = $self->new_job($queue) unless ref $queue eq 'Sque::Job';
+        $queue = $job->queue;
+    } else {
+        $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
+    }
+
     $self->stomp->send(
         persistent => 'true',
         destination => $self->key( $queue ),
@@ -93,6 +99,17 @@ backend and then you can start sending jobs to be done by workers:
         class => 'My::Task',
         args => [ 'Hello world!' ]
     });
+
+You can also send by just using:
+
+    $s->push({
+        class => 'My::Task',
+        args => [ 'Hello world!' ]
+    });
+
+In this case, the queue will be set automatically automatically to the
+job class name with colons replaced with hyphens, which in this
+case would be 'My-Task'.
 
 Background jobs can be any perl module that implement a perform() function.
 The L<Sque::Job> object is passed as the only argument to this function:
