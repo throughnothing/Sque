@@ -4,11 +4,11 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.002
+version 0.003
 
 # SYNOPSIS
 
-First you create a Sesque instance where you configure the [Stomp](http://search.cpan.org/perldoc?Stomp)
+First you create a Sque instance where you configure the [Stomp](http://search.cpan.org/perldoc?Stomp)
 backend and then you can start sending jobs to be done by workers:
 
     use Sque;
@@ -20,15 +20,46 @@ backend and then you can start sending jobs to be done by workers:
         args => [ 'Hello world!' ]
     });
 
+You can also send by just using:
+
+    $s->push({
+        class => 'My::Task',
+        args => [ 'Hello world!' ]
+    });
+
+In this case, the queue will be set automatically automatically to the
+job class name with colons replaced with hyphens, which in this
+case would be 'My-Task'.
+
 Background jobs can be any perl module that implement a perform() function.
-The Sque::Job object is passed as the only argument to this function:
+The [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object is passed as the only argument to this function:
 
     package My::Task;
     use strict;
     use 5.10.0;
 
     sub perform {
-        my $job = shift;
+        my ( $job ) = @_;
+        say $job->args->[0];
+    }
+
+    1;
+
+Background jobs can also be OO.  The perform function will still be called
+with the [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object as the only argument:
+
+    package My::Task;
+    use strict;
+    use 5.10.0;
+    use Moose;
+
+    with 'Role::Awesome';
+
+    has attr => ( is => 'ro', default => 'Where am I?' );
+
+    sub perform {
+        my ( $self, $job ) = shift;
+        say $self->attr;
         say $job->args->[0];
     }
 
@@ -40,7 +71,7 @@ to listen to one or more queues:
     use Sque;
 
     my $w = Sque->new( stomp => '127.0.0.1:61613' )->worker;
-    $w->add_queue('my_queue');
+    $w->add_queues('my_queue');
     $w->work;
 
 # DESCRIPTION
