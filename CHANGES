@@ -1,34 +1,109 @@
-Changelog for Sque
+==================================================
+Changes from 2011-03-18 00:00:00 +0000 to present.
+==================================================
 
-0.002 2012-03-09T11:13:37
- [William Wolf <throughnothing@gmail.com>]
- - update docs
+------------------------------------------
+version 0.003 at 2012-03-17 22:54:46 +0000
+------------------------------------------
 
+  Change: c5e214fe08aad20a68839cdb1556287ebf79f6ec
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 15:54:07 +0000
 
-v0.001 2012-03-09T10:37:19
- [William Wolf <throughnothing@gmail.com>]
- - v0.001
-   
+    Allow pushing to default queue.
+
+    This allows you to not need to specify a queue on push and have it
+    default to the job Class name with :'s replaced by -'s. 
+
+  Change: 4a5bb312d8c23deace813030a41f709da7643866
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 04:33:04 +0000
+
+    Allow OO jobs to be processed as well.
+
+    This will allow much greater flexibility with jobs as you can have
+    your jobs be full Moose classes that can share roles, etc. 
+
+  Change: 2d5708dc3eaabbe7c0d4948b0109193caffe0e32
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 11:03:16 +0000
+
+    doc typos 
+
+------------------------------------------
+version 0.002 at 2012-03-09 11:13:42 +0000
+------------------------------------------
+
+  Change: 951d9717396e1ae235cd64c67358cc83d6e6c539
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 03:13:42 +0000
+
+    v0.002
+
     [William Wolf <throughnothing@gmail.com>]
+
+    - update docs 
+
+  Change: 5fcf52f82e07092ba016ffbd80d4ecde9483befd
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 03:12:29 +0000
+
+    update docs 
+
+------------------------------------------
+version 0.001 at 2012-03-09 10:37:19 +0000
+------------------------------------------
+
+  Change: 9c6097f0a43886f58537d3bec06206a6f15af86d
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:37:19 +0000
+
+    v0.001
+
+    [William Wolf <throughnothing@gmail.com>]
+
     - .gitignore updates
-   
+
     - add some basic tests
-   
+
     - updates
-   
-    - Initial commit
 
- - .gitignore updates
+    - Initial commit 
 
- - add some basic tests
+  Change: a005fffaa0ea939a315c7e24bdc263305fb010c8
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:37:08 +0000
 
- - updates
+    .gitignore updates 
 
- - Initial commit
+  Change: 53fbd3cc8ee347772eb56dacd32ba79bb6e8c034
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:35:36 +0000
 
+    add some basic tests 
 
-v0.000 2012-03-09T10:14:31
- [William Wolf <throughnothing@gmail.com>]
- - initial commit
+  Change: adda7b225e3d0a5c7659ded78e65f277bb899b73
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:22:34 +0000
 
+    updates 
 
+  Change: 0e5e5f41f64a1e44aa02cc819d1deaa0a6bd47c7
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:19:57 +0000
+
+    Initial commit 
+
+------------------------------------------
+version 0.000 at 2012-03-09 10:14:31 +0000
+------------------------------------------
+
+  Change: c274ba18e095a825ee9edd407eec12d4064523c6
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:14:31 +0000
+
+    initial commit 
+
+================
+End of releases.
+================

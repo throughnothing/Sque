@@ -85,11 +85,19 @@ sub queue_from_class {
 sub perform {
     my $self = shift;
     $self->class->require || confess $@;
-    $self->class->can('perform')
-        || confess $self->class . " doesn't know how to perform";
 
-    no strict 'refs';
-    &{$self->class . '::perform'}($self);
+    # First test if its OO
+    if($self->class->can('new')){
+        no strict 'refs';
+        $self->class->new->perform( $self );
+    }else{
+        # If it's not OO, just call perform
+        $self->class->can('perform')
+            || confess $self->class . " doesn't know how to perform";
+
+        no strict 'refs';
+        &{$self->class . '::perform'}($self);
+    }
 }
 
 __PACKAGE__->meta->make_immutable();

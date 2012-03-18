@@ -39,8 +39,14 @@ has worker => (
 
 sub push {
     my ( $self, $queue, $job ) = @_;
-    confess "Can't push an empty job." unless $job;
-    $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
+    confess "Can't push an empty job." unless ( $job || ref $queue );
+    if( ref $queue ){
+        $job = $self->new_job($queue) unless ref $queue eq 'Sque::Job';
+        $queue = $job->queue;
+    } else {
+        $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
+    }
+
     $self->stomp->send(
         persistent => 'true',
         destination => $self->key( $queue ),
@@ -94,15 +100,46 @@ backend and then you can start sending jobs to be done by workers:
         args => [ 'Hello world!' ]
     });
 
+You can also send by just using:
+
+    $s->push({
+        class => 'My::Task',
+        args => [ 'Hello world!' ]
+    });
+
+In this case, the queue will be set automatically automatically to the
+job class name with colons replaced with hyphens, which in this
+case would be 'My-Task'.
+
 Background jobs can be any perl module that implement a perform() function.
-The Sque::Job object is passed as the only argument to this function:
+The L<Sque::Job> object is passed as the only argument to this function:
 
     package My::Task;
     use strict;
     use 5.10.0;
 
     sub perform {
-        my $job = shift;
+        my ( $job ) = @_;
+        say $job->args->[0];
+    }
+
+    1;
+
+Background jobs can also be OO.  The perform function will still be called
+with the L<Sque::Job> object as the only argument:
+
+    package My::Task;
+    use strict;
+    use 5.10.0;
+    use Moose;
+
+    with 'Role::Awesome';
+
+    has attr => ( is => 'ro', default => 'Where am I?' );
+
+    sub perform {
+        my ( $self, $job ) = shift;
+        say $self->attr;
         say $job->args->[0];
     }
 
@@ -114,7 +151,7 @@ to listen to one or more queues:
     use Sque;
 
     my $w = Sque->new( stomp => '127.0.0.1:61613' )->worker;
-    $w->add_queue('my_queue');
+    $w->add_queues('my_queue');
     $w->work;
 
 =head1 DESCRIPTION
