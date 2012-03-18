@@ -1,14 +1,22 @@
 ==================================================
-Changes from 2011-03-18 00:00:00 +0000 to present.
+Changes from 2011-03-19 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.003 at 2012-03-17 22:54:46 +0000
+version 0.003 at 2012-03-18 02:25:28 +0000
 ------------------------------------------
 
-  Change: c5e214fe08aad20a68839cdb1556287ebf79f6ec
+  Change: 76753a2befd83952e1d0918575364e4645ca8940
   Author: William Wolf <throughnothing@gmail.com>
-  Date : 2012-03-17 15:54:07 +0000
+  Date : 2012-03-17 19:23:48 +0000
+
+    Merge pull request #1 from throughnothing/allow-oo-jobs
+
+    Allow oo jobs 
+
+  Change: 40d7f3e6180832defe656b4107054c8d6471687c
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 18:59:58 +0000
 
     Allow pushing to default queue.
 
