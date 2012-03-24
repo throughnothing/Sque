@@ -128,9 +128,10 @@ hashref(see [Sque::Job](http://search.cpan.org/perldoc?Sque::Job)) or string(pay
 
 # TODO
 
-Make App::Sque that will let you run sque and just pass it the
-stomp server/port and some lib directories (so it can find worker classes
-if it needs).
+- Make App::Sque that will let you run sque and just pass it the
+stomp server/port, queue list, lib directories (if needed), and
+number of workers.
+- More (real) tests.
 
 # AUTHOR
 

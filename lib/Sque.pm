@@ -138,7 +138,7 @@ with the L<Sque::Job> object as the only argument:
     has attr => ( is => 'ro', default => 'Where am I?' );
 
     sub perform {
-        my ( $self, $job ) = shift;
+        my ( $self, $job ) = @_;
         say $self->attr;
         say $job->args->[0];
     }
@@ -204,8 +204,14 @@ hashref(see L<Sque::Job>) or string(payload for object).
 
 =head1 TODO
 
-Make App::Sque that will let you run sque and just pass it the
-stomp server/port and some lib directories (so it can find worker classes
-if it needs).
+=over 4
+
+=item * Make App::Sque that will let you run sque and just pass it the
+stomp server/port, queue list, lib directories (if needed), and
+number of workers.
+
+=item * More (real) tests.
+
+=back
 
 =cut
