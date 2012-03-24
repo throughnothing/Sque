@@ -4,7 +4,7 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
@@ -125,6 +125,12 @@ hashref(see [Sque::Job](http://search.cpan.org/perldoc?Sque::Job)) or string(pay
 # ATTRIBUTES
 
 # HELPER METHODS
+
+# TODO
+
+Make App::Sque that will let you run sque and just pass it the
+stomp server/port and some lib directories (so it can find worker classes
+if it needs).
 
 # AUTHOR
 

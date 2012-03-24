@@ -202,4 +202,10 @@ to build a redis key name for this sque instance.
 Build a L<Sque::Job> object on this system for the given
 hashref(see L<Sque::Job>) or string(payload for object).
 
+=head1 TODO
+
+Make App::Sque that will let you run sque and just pass it the
+stomp server/port and some lib directories (so it can find worker classes
+if it needs).
+
 =cut
