@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+package sque;
+use App::Sque;
+
+# ABSTRACT: Sque command-line tool
+
+App::Sque->run;
+
+=head1 SYNOPSIS
+
+This is the sque command line tool.  It can be used to start workers:
+
+    $ sque work --host 127.0.0.1 --port 61613 --workers 5 --lib ./lib --queues Queue1,Queue2,Queue3
+
+or send messages to a queue:
+
+    $ sque send --host 127.0.0.1 --port 61613 --class My::Task --queue Queue1 arg1 arg2 arg3 ...
+
+=cut

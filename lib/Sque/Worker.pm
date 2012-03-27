@@ -1,9 +1,9 @@
 package Sque::Worker;
 use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
-with 'Sque::Encoder';
-
 use Try::Tiny;
+
+with 'Sque::Encoder';
 
 # ABSTRACT: Does the hard work of babysitting Sque::Job's
 
