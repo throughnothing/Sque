@@ -44,7 +44,7 @@ has payload => (
     lazy => 1,
     default => sub {{
         class => $_[0]->class,
-        args => $_[0]->args
+        args => $_[0]->args,
     }},
     trigger => sub {
         my ( $self, $hr ) = @_;
