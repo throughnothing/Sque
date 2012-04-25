@@ -3,21 +3,21 @@ use warnings;
 package Sque;
 use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
-use Net::STOMP::Client;
+use Net::Stomp;
 
 use Sque::Job;
 use Sque::Worker;
 
 # ABSTRACT: Background job processing based on Resque, using Stomp
 
-subtype 'Sugar::Stomp' => as class_type('Net::STOMP::Client');
+subtype 'Sugar::Stomp' => as class_type('Net::Stomp');
 
 coerce 'Sugar::Stomp'
     => from 'Str'
     => via {
         my ( $host, $port ) = split /:/;
-        my $stomp = Net::STOMP::Client->new( host => $host, port => $port );
-        $stomp->connect();
+        my $stomp = Net::Stomp->new({ hostname => $host, port => $port });
+        $stomp->connect;
         return $stomp;
     };
 
@@ -26,7 +26,7 @@ has stomp => (
     lazy => 1,
     coerce => 1,
     isa => 'Sugar::Stomp',
-    default => sub { Net::STOMP::Client->new->connect },
+    default => sub { Net::Stomp->new->connect },
 );
 
 has namespace => ( is => 'rw', default => sub { 'sque' });
@@ -47,11 +47,11 @@ sub push {
         $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
     }
 
-    $self->stomp->send(
+    $self->stomp->send( {
         persistent => 'true',
         destination => $self->key( $queue ),
         body => $job->encode,
-    );
+    } );
 }
 
 sub pop {
@@ -61,7 +61,7 @@ sub pop {
 
     $self->new_job({
         frame => $frame,
-        queue => $frame->header('destination'),
+        queue => $frame->destination,
     });
 }
 

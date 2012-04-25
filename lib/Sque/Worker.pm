@@ -30,7 +30,7 @@ sub work {
         if(!$reval){
             #TODO: re-send messages to queue... ABORT messages?
         }
-        $self->stomp->ack( frame => $job->frame );
+        $self->stomp->ack({ frame => $job->frame });
     }
 }
 
@@ -68,11 +68,11 @@ sub log {
 
 sub _subscribe_queue {
     my ( $self, $q ) = @_;
-    $self->stomp->subscribe(
+    $self->stomp->subscribe( {
         destination => $q,
         id          => $q,
         ack         => 'client',
-    );
+    } );
 };
 
 __PACKAGE__->meta->make_immutable();

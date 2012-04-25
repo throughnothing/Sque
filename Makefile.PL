@@ -27,14 +27,14 @@ my %WriteMakefileArgs = (
     "Any::Moose" => 0,
     "App::Cmd::Setup" => 0,
     "JSON" => 0,
-    "Net::STOMP::Client" => 0,
+    "Net::Stomp" => 0,
     "Parallel::ForkManager" => 0,
     "Try::Tiny" => 0,
     "UNIVERSAL::require" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.004",
+  "VERSION" => "0.005",
   "test" => {
     "TESTS" => "t/*.t"
   }
