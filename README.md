@@ -4,7 +4,7 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.004
+version 0.005
 
 # SYNOPSIS
 
@@ -28,8 +28,8 @@ You can also send by just using:
     });
 
 In this case, the queue will be set automatically automatically to the
-job class name with colons replaced with hyphens, which in this
-case would be 'My-Task'.
+job class name with colons removed, which in this
+case would be 'MyTask'.
 
 Additionally, the [sque](http://search.cpan.org/perldoc?sque) command-line tool can be used to send messages:
 
