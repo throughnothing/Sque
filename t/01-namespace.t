@@ -20,4 +20,4 @@ sub test_namespace {
             'Key generator use namespace' );
 }
 
-done_testing();
+done_testing;

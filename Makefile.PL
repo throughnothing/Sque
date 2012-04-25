@@ -12,7 +12,13 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "Background job processing based on Resque, using Stomp",
   "AUTHOR" => "William Wolf <throughnothing\@gmail.com>",
   "BUILD_REQUIRES" => {
-    "Test::More" => 0
+    "Capture::Tiny" => 0,
+    "Exporter" => 0,
+    "Moose" => 0,
+    "POE::Component::MessageQueue" => 0,
+    "POSIX" => 0,
+    "Test::More" => 0,
+    "base" => 0
   },
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"

@@ -23,14 +23,12 @@ has queues => (
 has verbose => ( is => 'rw', default => sub {0} );
 
 sub work {
-    my $self = shift;
+    my ( $self ) = @_;
     while( my $job = $self->sque->pop ) {
         $job->worker($self);
         my $reval = $self->perform($job);
-        if(!$reval){
-            #TODO: re-send messages to queue... ABORT messages?
-        }
-        $self->stomp->ack({ frame => $job->frame });
+        #TODO: re-send messages to queue... ABORT messages?
+        # if(!$reval){ }
     }
 }
 
@@ -45,7 +43,13 @@ sub perform {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
         # TODO send to failed queue ?
     };
+    $self->stomp->ack({ frame => $job->frame });
     $ret;
+}
+
+sub reserve {
+    my ( $self ) = @_;
+    return $self->sque->pop;
 }
 
 sub add_queues {
@@ -58,6 +62,7 @@ sub add_queues {
             $self->_subscribe_queue( $queue );
         }
     }
+    $self;
 }
 
 sub log {
@@ -70,7 +75,6 @@ sub _subscribe_queue {
     my ( $self, $q ) = @_;
     $self->stomp->subscribe( {
         destination => $q,
-        id          => $q,
         ack         => 'client',
     } );
 };
@@ -103,6 +107,10 @@ This is the main wheel and will run while shutdown() is false.
 
 Call perform() on the given Sque::Job capturing and reporting
 any exception.
+
+=method reserve
+
+Call reserve() to return the next job popped of the queue(s)
 
 =method add_queues
 

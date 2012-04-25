@@ -69,7 +69,7 @@ sub new_job {
     my ( $self, $job ) = @_;
 
     if ( $job && ref $job && ref $job eq 'HASH' ) {
-         return Sque::Job->new({ sque => $self, %$job });
+        return Sque::Job->new({ sque => $self, %$job });
     }
     elsif ( $job ) {
         return Sque::Job->new({ sque => $self, payload => $job });
