@@ -1,0 +1,208 @@
+==================================================
+Changes from 2011-05-03 00:00:00 +0000 to present.
+==================================================
+
+------------------------------------------
+version 0.006 at 2012-05-02 16:25:00 +0000
+------------------------------------------
+
+  Change: 850ac2edeb936fa1211235d35b26d06114d76738
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-05-02 12:23:00 +0000
+
+    Add more sleep to SpawnMQ
+
+    This will give the tests more time to leat the mq.pl startup and get
+    listening. I think that was causing test failures on a lot of systems
+    where sleep 1 wasn't long enough. 
+
+------------------------------------------
+version 0.005 at 2012-04-25 04:06:35 +0000
+------------------------------------------
+
+  Change: 49457c7114605af6799322c79d2ca0ba33f735b6
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-04-24 21:06:35 +0000
+
+    Merge pull request #3 from throughnothing/net-stomp
+
+    Change Net::STOMP::Client => Net::Stomp 
+
+  Change: ea42590e66545a3b645122230b407f9b260ba07c
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-04-24 23:59:54 +0000
+
+    Add some more tests. 
+
+  Change: dbfd381de286bab00a0ccf67557b866d992c1b8a
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-04-24 21:36:32 +0000
+
+    Move to Net::Stomp from Net::STOMP::Client. 
+
+  Change: 1e7d921047e4c4302657c310ccdabffea61bb23f
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-28 08:49:43 +0000
+
+    Fix error in documentation 
+
+------------------------------------------
+version 0.004 at 2012-03-27 21:34:33 +0000
+------------------------------------------
+
+  Change: 6e89137e055a60ca680db10490ec1902e0d71fd7
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-27 14:34:33 +0000
+
+    Merge pull request #2 from throughnothing/app
+
+    Add sque command-line tool. 
+
+  Change: 96d7c6dc484b68fe6dc3557f6b9e615f23835aad
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-27 17:32:58 +0000
+
+    Add sque command-line tool.
+
+    This adds the sque command-line tool with support for the work and
+    send commands. It allows running a specified number of workers
+    listening to a number of queues. The send command allows easy sending
+    of messages to squeue workers. 
+
+  Change: 9b1d9a81676bf9e31f3df55fe7e351c9c245f059
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-24 02:14:38 +0000
+
+    Update docs 
+
+  Change: f916d4fd64f432dd22c25a67833c99d72257103e
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-24 02:09:33 +0000
+
+    Remove CHANGES file from repo, we don't need it 
+
+  Change: ca8273b728f995ad742941a23cad850c65a23915
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-24 01:33:13 +0000
+
+    Add TODO 
+
+------------------------------------------
+version 0.003 at 2012-03-18 02:25:38 +0000
+------------------------------------------
+
+  Change: 317a1efc33d4726606bf4ef8edd67abace2e5cd6
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 19:25:38 +0000
+
+    v0.003 
+
+  Change: 76753a2befd83952e1d0918575364e4645ca8940
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 19:23:48 +0000
+
+    Merge pull request #1 from throughnothing/allow-oo-jobs
+
+    Allow oo jobs 
+
+  Change: 40d7f3e6180832defe656b4107054c8d6471687c
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 18:59:58 +0000
+
+    Allow pushing to default queue.
+
+    This allows you to not need to specify a queue on push and have it
+    default to the job Class name with :'s replaced by -'s. 
+
+  Change: 4a5bb312d8c23deace813030a41f709da7643866
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-17 04:33:04 +0000
+
+    Allow OO jobs to be processed as well.
+
+    This will allow much greater flexibility with jobs as you can have
+    your jobs be full Moose classes that can share roles, etc. 
+
+  Change: 2d5708dc3eaabbe7c0d4948b0109193caffe0e32
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 11:03:16 +0000
+
+    doc typos 
+
+------------------------------------------
+version 0.002 at 2012-03-09 11:13:42 +0000
+------------------------------------------
+
+  Change: 951d9717396e1ae235cd64c67358cc83d6e6c539
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 03:13:42 +0000
+
+    v0.002
+
+    [William Wolf <throughnothing@gmail.com>]
+
+    - update docs 
+
+  Change: 5fcf52f82e07092ba016ffbd80d4ecde9483befd
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 03:12:29 +0000
+
+    update docs 
+
+------------------------------------------
+version 0.001 at 2012-03-09 10:37:19 +0000
+------------------------------------------
+
+  Change: 9c6097f0a43886f58537d3bec06206a6f15af86d
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:37:19 +0000
+
+    v0.001
+
+    [William Wolf <throughnothing@gmail.com>]
+
+    - .gitignore updates
+
+    - add some basic tests
+
+    - updates
+
+    - Initial commit 
+
+  Change: a005fffaa0ea939a315c7e24bdc263305fb010c8
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:37:08 +0000
+
+    .gitignore updates 
+
+  Change: 53fbd3cc8ee347772eb56dacd32ba79bb6e8c034
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:35:36 +0000
+
+    add some basic tests 
+
+  Change: adda7b225e3d0a5c7659ded78e65f277bb899b73
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:22:34 +0000
+
+    updates 
+
+  Change: 0e5e5f41f64a1e44aa02cc819d1deaa0a6bd47c7
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:19:57 +0000
+
+    Initial commit 
+
+------------------------------------------
+version 0.000 at 2012-03-09 10:14:31 +0000
+------------------------------------------
+
+  Change: c274ba18e095a825ee9edd407eec12d4064523c6
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-03-09 02:14:31 +0000
+
+    initial commit 
+
+================
+End of releases.
+================
