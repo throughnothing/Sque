@@ -20,7 +20,7 @@ sub spawn {
     my $data_dir = ".perl_mq";
 
     if (my $pid = fork) {
-        sleep 1;
+        sleep 3;
         return sub {
             kill(15, $pid);
             my $try = 0;
