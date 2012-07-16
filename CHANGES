@@ -1,10 +1,16 @@
 ==================================================
-Changes from 2011-05-03 00:00:00 +0000 to present.
+Changes from 2011-07-17 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.006 at 2012-05-02 16:25:00 +0000
+version 0.006 at 2012-05-02 16:25:27 +0000
 ------------------------------------------
+
+  Change: d0e4ab6ceb4c8026b63d00211100fe5fb0432d41
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-05-02 12:25:27 +0000
+
+    Add CHANGES 
 
   Change: 850ac2edeb936fa1211235d35b26d06114d76738
   Author: William Wolf <throughnothing@gmail.com>

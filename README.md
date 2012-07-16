@@ -4,7 +4,7 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.005
+version 0.007
 
 # SYNOPSIS
 
