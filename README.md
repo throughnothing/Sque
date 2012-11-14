@@ -4,7 +4,7 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.007
+version 0.008
 
 # SYNOPSIS
 
@@ -14,6 +14,8 @@ backend and then you can start sending jobs to be done by workers:
     use Sque;
 
     my $s = Sque->new( stomp => '127.0.0.1:61613' );
+    # Or, for failover
+    $s = Sque->new( stomp => [ '127.0.0.1:61613', '127.0.0.2:61613' ] );
 
     $s->push( my_queue => {
         class => 'My::Task',

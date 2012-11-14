@@ -21,6 +21,27 @@ coerce 'Sugar::Stomp'
         return $stomp;
     };
 
+coerce 'Sugar::Stomp'
+    => from 'ArrayRef[Str]'
+    => via {
+        my ($a) = @_;
+        my $hosts = [];
+        for ( @$a ) {
+            my ( $host, $port ) = split /:/;
+            push @$hosts, { hostname => $host, port => $port };
+        }
+
+        my $stomp = @$hosts > 1
+            ? Net::Stomp->new({ hosts => $hosts })
+            : Net::Stomp->new({
+                    hostname => $hosts->[0]{hostname},
+                    port     => $hosts->[0]{port}
+                });
+
+        $stomp->connect;
+        return $stomp;
+    };
+
 has stomp => (
     is => 'ro',
     lazy => 1,
@@ -94,6 +115,8 @@ backend and then you can start sending jobs to be done by workers:
     use Sque;
 
     my $s = Sque->new( stomp => '127.0.0.1:61613' );
+    # Or, for failover
+    $s = Sque->new( stomp => [ '127.0.0.1:61613', '127.0.0.2:61613' ] );
 
     $s->push( my_queue => {
         class => 'My::Task',
