@@ -3,8 +3,24 @@ Changes from 2011-11-15 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.008 at 2012-11-14 19:35:58 +0000
+version 0.009 at 2012-11-14 22:04:04 +0000
 ------------------------------------------
+
+  Change: 8d8917cb35bc0d5eaad569daad55b627dad34b66
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-11-14 13:29:38 +0000
+
+    Add Travis.yml 
+
+------------------------------------------
+version 0.008 at 2012-11-14 19:36:20 +0000
+------------------------------------------
+
+  Change: c7232b8ec37b9efb14820e4e7ab000b0d4330027
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-11-14 11:36:20 +0000
+
+    v0.008 
 
   Change: fe3d0eac2309038ff62e88355c9541d2c35e06f2
   Author: William Wolf <throughnothing@gmail.com>
