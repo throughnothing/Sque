@@ -3,8 +3,14 @@ Changes from 2011-11-15 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.008 at 2012-11-14 19:34:29 +0000
+version 0.008 at 2012-11-14 19:35:58 +0000
 ------------------------------------------
+
+  Change: fe3d0eac2309038ff62e88355c9541d2c35e06f2
+  Author: William Wolf <throughnothing@gmail.com>
+  Date : 2012-11-14 11:35:53 +0000
+
+    Add support for stomp failover hosts 
 
   Change: dc130a8542ff360012cf2117d020a54541490fa8
   Author: William Wolf <throughnothing@gmail.com>
