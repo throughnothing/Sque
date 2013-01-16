@@ -22,14 +22,17 @@ has queues => (
 
 has verbose => ( is => 'rw', default => sub {0} );
 
+sub work_single {
+    my ( $self ) = @_;
+    my $job = $self->sque->pop;
+    $job->worker($self);
+    $self->perform($job);
+}
+
 sub work {
     my ( $self ) = @_;
-    while( my $job = $self->sque->pop ) {
-        $job->worker($self);
-        my $reval = $self->perform($job);
-        #TODO: re-send messages to queue... ABORT messages?
-        # if(!$reval){ }
-    }
+    # This just calls work_single indefinitely
+    while( 1 ) { $self->work_single }
 }
 
 sub perform {
@@ -95,6 +98,11 @@ Queues this worker should fetch jobs from.
 
 Set to a true value to make this worker report what's doing while
 on work().
+
+=method work_single
+
+Calling this method will make this worker pull and perform one job from the
+queues().
 
 =method work
 
