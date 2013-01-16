@@ -36,15 +36,20 @@ sub perform {
     my ( $self, $job ) = @_;
     my $ret;
     try {
-        $ret = $job->perform;
+        $job->perform;
         $self->log( sprintf( "done: %s", $job->stringify ) );
+        $ret = 1;
     }
     catch {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
-        # TODO send to failed queue ?
+        # Increment the Job retries and send the job back on the queue
+        $job->retries( $job->retries + 1 );
+        $self->sque->push( $job );
+        $ret = 0;
     };
+    # Ack original frame. If perform failed, we've sent it back on the queue
     $self->stomp->ack({ frame => $job->frame });
-    $ret;
+    return $ret;
 }
 
 sub reserve {

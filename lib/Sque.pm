@@ -62,7 +62,7 @@ sub push {
     my ( $self, $queue, $job ) = @_;
     confess "Can't push an empty job." unless ( $job || ref $queue );
     if( ref $queue ){
-        $job = $self->new_job($queue) unless ref $queue eq 'Sque::Job';
+        $job = ref $queue eq 'Sque::Job' ? $queue : $self->new_job($queue);
         $queue = $job->queue;
     } else {
         $job = $self->new_job($job) unless ref $job eq 'Sque::Job';
@@ -91,16 +91,21 @@ sub new_job {
 
     if ( $job && ref $job && ref $job eq 'HASH' ) {
         return Sque::Job->new({ sque => $self, %$job });
-    }
-    elsif ( $job ) {
+    } elsif ( $job ) {
         return Sque::Job->new({ sque => $self, payload => $job });
     }
     confess "Can't build an empty Sque::Job object.";
 }
 
 sub key {
-    my $self = shift;
-    '/queue/' . $self->namespace . '/' . shift;
+    my ( $self, $queue ) = @_;
+    '/queue/' . $self->namespace . '/' . $queue;
+}
+
+sub unkey {
+    my ( $self, $queue ) = @_;
+    my $ns = $self->namespace;
+    return $queue =~ s[/queue/$ns/][]r;
 }
 
 __PACKAGE__->meta->make_immutable();
