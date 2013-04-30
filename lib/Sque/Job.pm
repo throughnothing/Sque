@@ -53,6 +53,12 @@ has payload => (
     }
 );
 
+has headers => (
+    is => 'rw',
+    isa => 'HashRef',
+    default => sub{ {} },
+);
+
 has frame => (
     is => 'ro',
     lazy => 1,
