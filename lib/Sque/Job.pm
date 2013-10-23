@@ -33,6 +33,17 @@ has queue => (
 
 has args => ( is => 'rw', isa => 'ArrayRef', default => sub {[]} );
 
+has retries => (
+    is => 'rw',
+    isa => 'Int',
+    default => 0,
+    trigger => sub {
+        my ( $self, $retries ) = @_;
+        # Set the retiers on the payload
+        $self->payload->{retries} = $retries;
+    }
+);
+
 coerce 'HashRef'
     => from 'Str'
     => via { JSON->new->utf8->decode($_) };
@@ -45,11 +56,13 @@ has payload => (
     default => sub {{
         class => $_[0]->class,
         args => $_[0]->args,
+        retries => $_[0]->retries,
     }},
     trigger => sub {
         my ( $self, $hr ) = @_;
         $self->class( $hr->{class} );
         $self->args( $hr->{args} ) if $hr->{args};
+        $self->retries( $hr->{retries} ) if $hr->{retries};
     }
 );
 
@@ -65,6 +78,7 @@ has frame => (
     default => sub { {} },
     trigger => sub {
         my ( $self, $frame ) = @_;
+        $self->queue( $self->sque->unkey( $frame->destination ) );
         $self->payload( $frame->body );
     }
 );
