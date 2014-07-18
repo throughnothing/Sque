@@ -7,6 +7,8 @@ with 'Sque::Encoder';
 
 # ABSTRACT: Does the hard work of babysitting Sque::Job's
 
+has _dying => (is => 'rw', default => 0);
+
 has logger => (is => 'rw');
 
 has sque => (
@@ -24,11 +26,25 @@ has queues => (
 
 has verbose => ( is => 'rw', default => sub {0} );
 
+sub BUILD {
+    my ($self) = @_;
+
+    my $die_handler = sub {
+        my ($signal) = @_;
+        $self->log("Received $signal signal, dying...");
+        $self->_dying(1);
+    };
+
+    # Setup die handlers
+    $SIG{$_} = $die_handler for qw(INT TERM KILL QUIT)
+}
+
 sub work {
     my ( $self ) = @_;
     while( my $job = $self->sque->pop ) {
         $job->worker($self);
         my $reval = $self->perform($job);
+        exit 0 if $self->_dying;
     }
 }
 
@@ -38,8 +54,7 @@ sub perform {
     try {
         $ret = $job->perform;
         $self->log( sprintf( "done: %s", $job->stringify ) );
-    }
-    catch {
+    } catch {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
     };
     $self->stomp->ack({ frame => $job->frame });
