@@ -26,7 +26,8 @@ has class => (
 );
 
 has queue => (
-    is => 'rw', lazy => 1,
+    is => 'rw',
+    lazy => 1,
     default => \&queue_from_class,
     predicate => 'queued'
 );
