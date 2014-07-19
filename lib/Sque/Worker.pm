@@ -7,6 +7,8 @@ with 'Sque::Encoder';
 
 # ABSTRACT: Does the hard work of babysitting Sque::Job's
 
+has logger => (is => 'rw');
+
 has sque => (
     is => 'ro',
     required => 1,
@@ -27,8 +29,6 @@ sub work {
     while( my $job = $self->sque->pop ) {
         $job->worker($self);
         my $reval = $self->perform($job);
-        #TODO: re-send messages to queue... ABORT messages?
-        # if(!$reval){ }
     }
 }
 
@@ -41,10 +41,9 @@ sub perform {
     }
     catch {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
-        # TODO send to failed queue ?
     };
     $self->stomp->ack({ frame => $job->frame });
-    $ret;
+    return $ret;
 }
 
 sub reserve {
@@ -62,13 +61,12 @@ sub add_queues {
             $self->_subscribe_queue( $queue );
         }
     }
-    $self;
+    return $self;
 }
 
 sub log {
     my $self = shift;
-    return unless $self->verbose;
-    print STDERR shift, "\n";
+    $self->logger->DEBUG(@_) if $self->verbose and $self->logger;
 }
 
 sub _subscribe_queue {
