@@ -4,11 +4,11 @@ Sque - Background job processing based on Resque, using Stomp
 
 # VERSION
 
-version 0.009
+version 0.010
 
 # SYNOPSIS
 
-First you create a Sque instance where you configure the [Stomp](http://search.cpan.org/perldoc?Stomp)
+First you create a Sque instance where you configure the [Stomp](https://metacpan.org/pod/Stomp)
 backend and then you can start sending jobs to be done by workers:
 
     use Sque;
@@ -41,12 +41,12 @@ You can set custom `STOMP` headers by passing them in as follows:
         headers => { header1 => 'val1', header2 => 'val2' }
     });
 
-Additionally, the [sque](http://search.cpan.org/perldoc?sque) command-line tool can be used to send messages:
+Additionally, the [sque](https://metacpan.org/pod/sque) command-line tool can be used to send messages:
 
     $ sque send -h 127.0.0.1 -p 61613 -c My::Task 'Hello world!'
 
 Background jobs can be any perl module that implement a perform() function.
-The [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object is passed as the only argument to this function:
+The [Sque::Job](https://metacpan.org/pod/Sque::Job) object is passed as the only argument to this function:
 
     package My::Task;
     use strict;
@@ -60,7 +60,7 @@ The [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object is passed as th
     1;
 
 Background jobs can also be OO.  The perform function will still be called
-with the [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object as the only argument:
+with the [Sque::Job](https://metacpan.org/pod/Sque::Job) object as the only argument:
 
     package My::Task;
     use strict;
@@ -79,7 +79,7 @@ with the [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object as the onl
 
     1;
 
-Finally, you run your jobs by instancing a [Sque::Worker](http://search.cpan.org/perldoc?Sque::Worker) and telling it
+Finally, you run your jobs by instancing a [Sque::Worker](https://metacpan.org/pod/Sque::Worker) and telling it
 to listen to one or more queues:
 
     use Sque;
@@ -88,7 +88,7 @@ to listen to one or more queues:
     $w->add_queues('my_queue');
     $w->work;
 
-Or you can simply use the [sque](http://search.cpan.org/perldoc?sque) command-line tool which uses [App::Sque](http://search.cpan.org/perldoc?App::Sque)
+Or you can simply use the [sque](https://metacpan.org/pod/sque) command-line tool which uses [App::Sque](https://metacpan.org/pod/App::Sque)
 like so:
 
     $ sque work --host 127.0.0.1 --port 61613 --workers 5 --lib ./lib --lib ./lib2 --queues Queue1,Queue2,Queue3
@@ -111,14 +111,14 @@ Namespace for queues, default is 'sque'
 
 ## worker
 
-A [Sque::Worker](http://search.cpan.org/perldoc?Sque::Worker) on this sque instance.
+A [Sque::Worker](https://metacpan.org/pod/Sque::Worker) on this sque instance.
 
 # METHODS
 
 ## push
 
 Pushes a job onto a queue. Queue name should be a string and the
-item should be a [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object or a hashref containing:
+item should be a [Sque::Job](https://metacpan.org/pod/Sque::Job) object or a hashref containing:
 class - The String name of the job class to run.
 args - Any arrayref of arguments to pass the job.
 
@@ -138,8 +138,8 @@ to build a redis key name for this sque instance.
 
 ## new\_job
 
-Build a [Sque::Job](http://search.cpan.org/perldoc?Sque::Job) object on this system for the given
-hashref(see [Sque::Job](http://search.cpan.org/perldoc?Sque::Job)) or string(payload for object).
+Build a [Sque::Job](https://metacpan.org/pod/Sque::Job) object on this system for the given
+hashref(see [Sque::Job](https://metacpan.org/pod/Sque::Job)) or string(payload for object).
 
 # ATTRIBUTES
 
