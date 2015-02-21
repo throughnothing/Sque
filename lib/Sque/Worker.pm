@@ -9,7 +9,9 @@ with 'Sque::Encoder';
 
 has _dying => (is => 'rw', default => 0);
 
-has logger => (is => 'rw');
+has logger => (is => 'ro');
+
+has log_finished => (is => 'ro', default => 1);
 
 has sque => (
     is => 'ro',
@@ -54,8 +56,10 @@ sub perform {
     try {
         $ret = $job->perform;
         $self->log( sprintf( "done: %s", $job->stringify ) );
+            if $self->log_finished;
     } catch {
         $self->log( sprintf( "%s failed: %s", $job->stringify, $_ ) );
+            if $self->log_finished;
     };
     $self->stomp->ack({ frame => $job->frame });
     return $ret;
